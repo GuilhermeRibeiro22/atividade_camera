@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../controller/image_controller.dart';
-import '../model/image_model.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({super.key});
@@ -13,28 +12,7 @@ class _HomeViewState extends State<HomeView> {
    final ImageController controller = ImageController();
 
   @override
-  
-  // Função para mostrar o AlertDialog
-  void _showDialog(String title, String message, bool success) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(title),
-          content: Text(message),
-          actions: <Widget>[
-            TextButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

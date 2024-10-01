@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'package:image_picker/image_picker.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 import 'package:camera/model/image_model.dart';
 
 class ImageController {
