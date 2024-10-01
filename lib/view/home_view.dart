@@ -10,26 +10,10 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final ImageModel model = ImageModel();
-  late final ImageController controller;
+   final ImageController controller = ImageController();
 
   @override
-  void initState() {
-    super.initState();
-    controller = ImageController(model);
-  }
-
-  Future<void> _saveImage() async {
-    final result = await controller.saveImage();
-    if (result != null && result) {
-      _showDialog('Sucesso', 'Imagem salva na galeria!', true);
-    } else if (result == null) {
-      _showDialog('Atenção', 'Nenhuma imagem para salvar!', false);
-    } else {
-      _showDialog('Erro', 'Erro ao salvar imagem.', false);
-    }
-  }
-
+  
   // Função para mostrar o AlertDialog
   void _showDialog(String title, String message, bool success) {
     showDialog(
@@ -65,20 +49,23 @@ class _HomeViewState extends State<HomeView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
-                child: model.imageFile == null
+                child: controller.camera.imageFile == null
                     ? Text('Nenhuma imagem selecionada.')
-                    : Image.file(model.imageFile!),
+                    : Image.file(controller.camera.imageFile!),
               ),
               SizedBox(height: 8),
               ElevatedButton(
                 onPressed: () async {
-                  await controller.getImageFromCamera();
-                  setState(() {}); // Atualiza a interface após capturar a imagem
+                  await controller.abrirCamera();
+                  setState(() {});
                 },
                 child: Text('Abrir Câmera'),
               ),
               ElevatedButton(
-                onPressed: _saveImage,
+                onPressed: () async {
+                  await controller.salvarFoto();
+                  setState(() { });
+                },
                 child: Text('Salvar Foto na Galeria'),
               ),
             ],
